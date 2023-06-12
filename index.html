@@ -1,0 +1,62 @@
+
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Product Cart</title>
+  <style>
+    .cart {
+      display: flex;
+      flex-wrap: wrap;
+    }
+    .product {
+      width: 200px;
+      padding: 10px;
+      margin: 10px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      text-align: center;
+    }
+    .product img {
+      width: 100px;
+      height: 100px;
+      margin-bottom: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div id="cart-container" class="cart"></div>
+
+  <script>
+    // Fetch data from the API
+    fetch('https://dummyjson.com/products')
+      .then(response => response.json())
+      .then(data => {
+        // Render the data on the web page
+        const cartContainer = document.getElementById('cart-container');
+
+        data.products.forEach((product) => {
+          const productItem = document.createElement('div');
+          productItem.classList.add('product');
+
+          const image = document.createElement('img');
+          image.src = product.images[0];
+          productItem.appendChild(image);
+
+          const name = document.createElement('h3');
+          name.textContent = product.title;
+          productItem.appendChild(name);
+
+          const price = document.createElement('p');
+          price.textContent = '$' + product.price;
+          productItem.appendChild(price);
+
+          cartContainer.appendChild(productItem);
+        });
+      })
+      .catch(error => {
+        console.error('Error:', error);
+      });
+  </script>
+</body>
+</html>
